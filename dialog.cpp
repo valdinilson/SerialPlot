@@ -168,17 +168,18 @@ void Dialog::on_btnConectar_clicked()
 
 void Dialog::on_btnIniciar_clicked()
 {
-    if (arduino->isWritable())
-        if (ui->rdoTensao->isEnabled())
+    if (arduino->isWritable()) {
+        if (ui->rdoTensao->isChecked())
         {
             QString s = "v:" + QString::number(ui->spnTensao->value());
             arduino->write(s.toStdString().c_str());
-        } else if (ui->rdoTempo->isEnabled())
+        } else if (ui->rdoTempo->isChecked())
         {
             QString s = "t:" + QString::number(ui->spnRampa->value()) + ":" + QString::number(ui->spnDegrau->value());
             arduino->write(s.toStdString().c_str());
         } else
             QMessageBox::information(nullptr, "Informação", "Falta dado para transmissão.");
+    }
 }
 
 void Dialog::on_rdoTensao_toggled(bool checked)
